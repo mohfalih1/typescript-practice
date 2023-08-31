@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ref } from "vue";
 const props = withDefaults(defineProps<Props>(), {
   modelValue: false,
   maxWidth: "787",
@@ -16,6 +17,7 @@ interface Props {
   item?: any;
   titleBtn: any;
 }
+const isValid = ref(false);
 </script>
 <template>
   <v-row justify="space-around">
@@ -34,13 +36,19 @@ interface Props {
                 <h2>{{ title }}</h2>
               </div>
               <div>
-                <v-btn variant="tonal" color="red" icon @click="emit('update:modelValue', false)">
+                <v-btn
+                  variant="tonal"
+                  color="red"
+                  icon
+                  @click="emit('update:modelValue', false)"
+                >
                   <v-icon color="red" icon="mdi-close" />
                 </v-btn>
               </div>
             </div>
           </v-toolbar>
           <v-card-text>
+            <v-form v-model="isValid"></v-form>
             <div class="text-h2 pa-12">{{ item }}</div>
           </v-card-text>
           <v-col cols="12" class="text-center">
