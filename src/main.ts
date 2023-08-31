@@ -14,6 +14,7 @@ import { createApp } from "vue";
 import { registerPlugins } from "@/plugins";
 import moshaToast from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
+import "@/assets/style.css";
 const app = createApp(App);
 app.use(moshaToast);
 registerPlugins(app);
