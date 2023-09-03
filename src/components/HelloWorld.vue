@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import axios from "@/plugins/axios";
 import Dialog from "@/components/Dialog.vue";
+import TextField from "@/components/inputs/TextField.vue";
 import { ref } from "vue";
 const testAPI = async () => {
   loadBtn.value = true;
@@ -22,9 +23,15 @@ const item = ref([{ data: "hi data dialog" }]);
 <template>
   <v-container class="fill-height">
     <v-responsive class="align-center text-center fill-height">
-      <span>Multiline message is:</span>
-      <p style="white-space: pre-line">{{ message }}</p>
-      <textarea v-model="message"></textarea>
+      <!-- <span>Multiline message is:</span> -->
+      <!-- <p style="white-space: pre-line">{{ message }}</p> -->
+      <!-- <textarea v-model="message"></textarea> -->
+      <v-row>
+        <v-col>
+          <TextField />
+        </v-col>
+      </v-row>
+      <!-- dialog start  -->
       <v-row class="d-flex align-center justify-center">
         <v-col cols="auto">
           <v-btn
@@ -41,6 +48,7 @@ const item = ref([{ data: "hi data dialog" }]);
           </v-btn>
         </v-col>
       </v-row>
+      <!-- dialog end  -->
     </v-responsive>
   </v-container>
   <Dialog v-model="isDialog" title="Global Dialog" :item="item" />

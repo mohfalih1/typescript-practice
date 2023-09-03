@@ -31,7 +31,7 @@ const isValid = ref(false);
       >
         <v-card rounded="lg">
           <v-toolbar color="primary" class="jj">
-            <div class="d-flex justify-space-between w-100 fle px-3">
+            <div class="d-flex justify-space-between w-100 fle px-3 pt-3">
               <div>
                 <h2>{{ title }}</h2>
               </div>
