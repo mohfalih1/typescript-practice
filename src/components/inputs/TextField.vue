@@ -1,13 +1,28 @@
+<script lang="ts">
+interface Book {
+  title: string;
+  author: string;
+  year: number;
+}
+// import { defineComponent } from "vue";
+// import type { PropType } from "vue";
+
+// export default defineComponent({
+//   props: {
+//     book: Object as PropType<Book>,
+//   },
+// });
+
+// const props = defineProps<{
+//   book: Book;
+// }>();
+</script>
 <template>
-    <div>
-       <v-text-field label="Label"></v-text-field>
-    </div>
+  <div>
+    <!-- <v-text-field 
+    v-model="value"
+    :label="author" placeholder="placeholder" ></v-text-field> -->
+  </div>
 </template>
 
-<script>
-
-</script>
-
-<style  scoped>
-
-</style>
+<style scoped></style>

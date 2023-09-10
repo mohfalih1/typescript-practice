@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/indent */
 
+import router from "@/router";
 import axiosClient from "axios";
 import {
   createToast,
@@ -49,11 +50,11 @@ axios.interceptors.response.use(
       if (response.status == 200 || response.status == 201) {
         showSnackbar({
           content: {
-            title: "test",
-            description: response as any,
+            title: response.data.data[0].Email as any,
+            description: "DDDD",
           },
           type: "success",
-          position: "bottom-right",
+          position: "top-right",
           transition: "bounce",
           showIcon: true,
           hideProgressBar: true,
@@ -64,21 +65,75 @@ axios.interceptors.response.use(
   },
   (error) => {
     console.log(error);
-    showSnackbar({
-      content: {
-        title: "test",
-        description: "test 2",
-      },
-      position: "bottom-right",
-      type: "danger",
-      transition: "bounce",
-      showIcon: true,
-      hideProgressBar: true,
-    });
+    if (error.response != null) {
+      switch (error.response.status) {
+        case 401:
+          // ℹ️ Logout user and redirect to login page
+          // Remove "userData" from localStorage
+          // localStorage.removeItem("userData");
+          showSnackbar({
+            content: {
+              title: "Error",
+              description: "You must login first",
+            },
+            position: "top-right",
+            type: "danger",
+            transition: "bounce",
+            showIcon: true,
+            hideProgressBar: true,
+          });
+
+          // Remove "accessToken" from localStorage
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("userAbilities");
+
+          // If 401 response returned from api
+          router.push("/login");
+          break;
+        case 400:
+          showSnackbar({
+            content: {
+              title: "Error",
+              description:
+                error.response.data?.message || "Something went wrong",
+            },
+            position: "top-right",
+            type: "danger",
+            transition: "bounce",
+            showIcon: true,
+            hideProgressBar: true,
+          });
+          break;
+        case 403:
+          showSnackbar({
+            content: {
+              title: "Error",
+              description: "You are not authorized to access this page",
+            },
+            position: "top-right",
+            type: "danger",
+            transition: "bounce",
+            showIcon: true,
+            hideProgressBar: true,
+          });
+          break;
+        case 500:
+          showSnackbar({
+            content: {
+              title: "Error",
+              description: "Something went wrong in the server",
+            },
+            position: "top-right",
+            type: "danger",
+            transition: "bounce",
+            showIcon: true,
+            hideProgressBar: true,
+          });
+          break;
+      }
+    }
     return Promise.reject(error);
   }
 );
-
 // get config from axios instance and get interceptors
-
 export default axios;

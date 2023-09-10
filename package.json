@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
+    "@pdftron/webviewer": "^10.3.0",
     "axios": "^1.4.0",
     "mosha-vue-toastify": "^1.0.23",
+    "pdf-lib": "^1.17.1",
     "pinia": "^2.0.23",
     "roboto-fontface": "*",
     "tailwindcss": "^3.3.3",
@@ -27,6 +29,7 @@
     "@vue/eslint-config-typescript": "^11.0.0",
     "eslint": "^8.0.0",
     "eslint-plugin-vue": "^9.0.0",
+    "sass": "^1.66.1",
     "typescript": "^5.0.0",
     "vite": "^4.2.0",
     "vite-plugin-vuetify": "^1.0.0",
