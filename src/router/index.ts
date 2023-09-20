@@ -5,6 +5,11 @@ const routes = [
   {
     path: "/",
     component: () => import("@/layouts/default/Default.vue"),
+    meta: {
+      requiresAuth: true,
+      hideNavigation: false,
+      hideAppBar: false,
+    },
     children: [
       {
         path: "",
@@ -18,10 +23,19 @@ const routes = [
       },
     ],
   },
+  // {
+  //   path: "/nav",
+  //   name: "Navigation",
+  //   component: () => import("@/components/navigation/navigation.vue"),
+  // },
   {
-    path: "/nav",
-    name: "Navigation",
-    component: () => import("@/components/navigation/navigation.vue"),
+    path: "/404",
+    name: "404",
+    meta: {
+      hideNavigation: true,
+      hideAppBar: true,
+    },
+    component: () => import("@/components/404.vue"),
   },
   {
     path: "/login",

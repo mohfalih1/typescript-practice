@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import {useAppStore} from "@/store/app";
+import { useAppStore } from "@/store/app";
+import TextField from "@/components/inputs/TextField.vue";
 const appStore = useAppStore();
 const dialog = ref(true);
 const valid = ref(true);
 const loginPassword = ref("");
 const loginEmail = ref("");
+const loadingBtn = ref(false);
+const test = ref();
 const show1 = ref(false);
 const rememberMe = ref(false);
 const isEmailValid = (email: any) => {
-  return appStore.loginEmailRules.every((rule: any) => rule(email) === true);
+  return appStore.EmailRules.every((rule: any) => rule(email) === true);
 };
 const emailIcon = computed(() => {
   return isEmailValid(loginEmail.value) ? "mdi-email" : "mdi-email-off";
@@ -18,7 +21,7 @@ const iconColorEmail = computed(() => {
   return isEmailValid(loginEmail.value) ? "green" : "red";
 });
 const isPasswordValid = (pwd: any) => {
-  return appStore.passwordRules.every((rule:any) => rule(pwd) === true);
+  return appStore.passwordRules.every((rule: any) => rule(pwd) === true);
 };
 const passwordIconColor = computed(() => {
   return isPasswordValid(loginPassword.value) ? "green" : "red";
@@ -50,16 +53,27 @@ const validate = () => {
               <v-form ref="loginForm" v-model="valid" lazy-validation>
                 <v-row>
                   <v-col cols="12">
+                    <!-- <TextField
+                      :modelValue="test"
+                      @update:modelValue="(newValue) => (test = newValue)"
+                      :TextField="{
+                        title: 'ddd',
+                        label: 'label',
+                        placeholder: 'placeholder',
+                      }"
+                    ></TextField> -->
                     <v-text-field
                       v-model="loginEmail"
-                      :rules="appStore.loginEmailRules"
+                      :rules="appStore.EmailRules"
                       label="E-mail"
                       placeholder="example@gmail.com"
                       required
                       variant="outlined"
                     >
                       <template v-slot:append>
-                        <v-icon size="30" :color="iconColorEmail">{{ emailIcon }}</v-icon>
+                        <v-icon size="30" :color="iconColorEmail">{{
+                          emailIcon
+                        }}</v-icon>
                       </template>
                     </v-text-field>
                   </v-col>
@@ -76,9 +90,12 @@ const validate = () => {
                       required
                     >
                       <template v-slot:append>
-                        <v-icon @click="show1 = !show1" size="30" :color="passwordIconColor">{{
-                          show1 ? "mdi-eye" : "mdi-eye-off"
-                        }}</v-icon>
+                        <v-icon
+                          @click="show1 = !show1"
+                          size="30"
+                          :color="passwordIconColor"
+                          >{{ show1 ? "mdi-eye" : "mdi-eye-off" }}</v-icon
+                        >
                       </template>
                     </v-text-field>
                   </v-col>
@@ -95,6 +112,7 @@ const validate = () => {
                     <v-btn
                       x-large
                       block
+                      :loading="loadingBtn"
                       :disabled="!valid"
                       color="primary"
                       @click="validate()"

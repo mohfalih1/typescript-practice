@@ -1,13 +1,13 @@
 // Utilities
 import { defineStore } from "pinia";
 interface State {
-  loginEmailRules: any;
+  EmailRules: any;
   passwordRules: any;
 }
 export const useAppStore = defineStore("app", {
   state: (): State => {
     return {
-      loginEmailRules: [
+      EmailRules: [
         (v: any) => !!v || "Required",
         (v: any) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],

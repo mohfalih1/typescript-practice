@@ -32,6 +32,7 @@ const axios = axiosClient.create({
   // You can add your headers here
   // ================================
   baseURL: "http://unisys.731my.com:64352/api/",
+  // baseURL: "https://jsonplaceholder.typicode.com/",
 
   // timeout: 1000,
 
@@ -46,6 +47,9 @@ axios.interceptors.request.use((config) => {
 // ℹ️ Add response interceptor to handle 401 response
 axios.interceptors.response.use(
   (response) => {
+    if (response.status == 404) {
+      router.push("/404");
+    }
     if (response.request.method != "GET") {
       if (response.status == 200 || response.status == 201) {
         showSnackbar({
@@ -61,6 +65,7 @@ axios.interceptors.response.use(
         });
       }
     }
+
     return response;
   },
   (error) => {

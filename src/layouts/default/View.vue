@@ -7,20 +7,19 @@
 </template> -->
 
 <script lang="ts" setup>
-  import AppBar from '@/components/app-bar/AppBar.vue';
+import AppBar from "@/components/app-bar/AppBar.vue";
 </script>
 <template>
-<div>
+  <div>
     <v-main>
-        <AppBar v-if="!$route.meta.hideNavigation"/>
-        <transition name="router-anim" enter-active-class="animated zoomIn">
-                <v-container fluid v-if="!$route.meta.hideNavigation">
-                    <router-view :key="$route.path" />
-                </v-container>
-                <router-view :key="$route.path" v-else />
-        </transition>
+      <AppBar v-if="!$route.meta.hideAppBar" />
+      <transition name="router-anim" enter-active-class="animated zoomIn">
+        <v-container fluid v-if="!$route.meta.hideNavigation">
+          <router-view :key="$route.path" />
+          {{ $route.meta }}
+        </v-container>
+        <router-view :key="$route.path" v-else />
+      </transition>
     </v-main>
-</div>
+  </div>
 </template>
-
-

@@ -1,27 +1,29 @@
-<script lang="ts">
-interface Book {
+<script setup lang="ts">
+import { defineProps } from "vue";
+defineEmits(["update:modelValue"]);
+interface textFieldProps {
   title: string;
-  author: string;
-  year: number;
+  label: string;
+  placeholder: string;
+  value: any;
+  modelValue: any;
+  rules: any;
 }
-// import { defineComponent } from "vue";
-// import type { PropType } from "vue";
 
-// export default defineComponent({
-//   props: {
-//     book: Object as PropType<Book>,
-//   },
-// });
-
-// const props = defineProps<{
-//   book: Book;
-// }>();
+const props = defineProps<{
+  TextField: textFieldProps;
+}>();
 </script>
 <template>
   <div>
-    <!-- <v-text-field 
-    v-model="value"
-    :label="author" placeholder="placeholder" ></v-text-field> -->
+    <v-text-field
+      :modelValue="TextField.modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+      :label="TextField.label"
+      :placeholder="TextField.placeholder"
+      :rules="TextField.rules"
+      variant="outlined"
+    ></v-text-field>
   </div>
 </template>
 

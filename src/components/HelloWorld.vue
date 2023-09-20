@@ -2,14 +2,19 @@
 import axios from "@/plugins/axios";
 import Dialog from "@/components/Dialog.vue";
 import TextField from "@/components/inputs/TextField.vue";
+// import { useI18n } from 'vue-i18n';
+// const { t } = useI18n();
+import { inject } from "vue";
+const t = inject("t");
+// import TestTs from "@/components/TestTS.vue";
 import { ref } from "vue";
-import { is } from "@babel/types";
+// import { is } from "@babel/types";
 const testAPI = async () => {
   loadBtn.value = true;
-  isDialog.value = true;
-  axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
-  // axios.defaults.baseURL = "http://localhost:1337/api";
-  axios.post("/post").then(() => {
+  // isDialog.value = true;
+  // axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
+  axios.defaults.baseURL = "http://localhost:1337/api";
+  axios.get("/").then(() => {
     loadBtn.value = false;
   });
 };
@@ -27,8 +32,20 @@ const item = ref([{ data: "hi data dialog" }]);
       <!-- <textarea v-model="message"></textarea> -->
       <v-row>
         <v-col>
-          <TextField />
+          <TextField
+            :modelValue="message"
+            @update:modelValue="(newValue) => (message = newValue)"
+            :TextField="{
+              title: 'ddd',
+              label: 'Email',
+              placeholder: 'Enter your email',
+            }"
+          />
         </v-col>
+        <div>
+          {{ t("welcome") }}
+        </div>
+        <!-- <TestTs></TestTs> -->
       </v-row>
       <!-- dialog start  -->
       <v-row class="d-flex align-center justify-center">
@@ -42,7 +59,7 @@ const item = ref([{ data: "hi data dialog" }]);
             :loading="loadBtn"
           >
             <v-icon icon="mdi-speedometer" size="large" start />
-
+            <!-- {{ t("test") }} -->
             Get Started
           </v-btn>
         </v-col>

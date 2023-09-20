@@ -35,6 +35,9 @@ const isValid = ref(false);
               <div>
                 <h2>{{ title }}</h2>
               </div>
+              <v-col>
+                
+              </v-col>
               <div>
                 <v-btn
                   variant="tonal"

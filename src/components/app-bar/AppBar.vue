@@ -1,6 +1,14 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useTheme } from "vuetify";
+import { availableLanguages } from "@/i18n";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+const { locale } = useI18n();
+const selectedLanguage = ref(locale.value); // initialize with current language
+function changeLanguage() {
+  locale.value = selectedLanguage.value; // set the new language
+}
 const changeIcon = ref(false);
 
 const theme = useTheme();
@@ -13,6 +21,12 @@ function toggleTheme() {
     changeIcon.value = false;
   }
 }
+watch(
+  () => selectedLanguage.value,
+  (val) => {
+    changeLanguage();
+  }
+);
 </script>
 <template>
   <v-app-bar :elevation="2">
@@ -23,8 +37,26 @@ function toggleTheme() {
       ></v-btn>
 
       <v-btn icon="mdi-magnify"></v-btn>
+      <label class="bg-background">AR</label>
 
+      <v-switch
+        class="mt-5 mx-2"
+        v-model="selectedLanguage"
+        color="primary"
+        true-icon="mdi-translate"
+        false-icon="mdi-translate"
+        true-value="en"
+        false-value="ar"
+      >
+      </v-switch>
+      <label>EN</label>
       <v-btn icon="mdi-dots-vertical"></v-btn>
+      <h1>{{ t("Add") }}</h1>
+      <br />
+
+      <h1>
+        {{ t("edit") }}
+      </h1>
     </template>
     <template v-slot:default>
       <v-list-item

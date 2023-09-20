@@ -14,13 +14,14 @@ import { createVuetify } from "vuetify";
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
   theme: {
-    defaultTheme: "light",
+    defaultTheme: "dark",
     themes: {
       light: {
         colors: {
           primary: "#9AC5F4",
           secondary: "#99DBF5",
           textColor: "#FFEEBB",
+          background: "#FFFFFF",
         },
       },
       dark: {
@@ -28,6 +29,7 @@ export default createVuetify({
           primary: "#495C83",
           secondary: "#99DBF5",
           textColor: "#FFEEBB",
+          background: "#000000",
         },
       },
     },
